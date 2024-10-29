@@ -1,14 +1,13 @@
+/**
+ * Node modules
+ */
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { PaperProvider } from 'react-native-paper';
 
-export default function App() {
-  return (
-    <View style={ styles.container }>
-      Sample content to view
-    </View>
-  );
-}
+/**
+ * Components
+ */
+import Header from './components/Header';
 
 const styles = StyleSheet.create({
   container: {
@@ -19,3 +18,12 @@ const styles = StyleSheet.create({
     pointerEvents: 'box-only',
   },
 });
+
+export default function App() {
+  return (
+    <View style={ styles.container }>
+      <Header />
+    </View>
+  );
+}
+
