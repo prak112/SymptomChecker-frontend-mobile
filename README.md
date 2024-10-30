@@ -7,8 +7,9 @@ The project allows mobile users to input their symptoms and receive possible dia
 
 - Tools and Technologies used :
 
-    - `react-native`: A framework for building native mobile apps using JavaScript and React for cross-platform functionality (Andriod, iOS).   
-    - `expo`: A platform for building, deploying, and managing React Native apps across web and mobile platforms.
+    - `react-native`: Framework for building native mobile apps using JavaScript and React for cross-platform functionality (Andriod, iOS).   
+    - `expo`: Platform for building, deploying, and managing React Native apps across web and mobile platforms.
+    - `react-native-paper`: Replacement for Material UI components in React Native. Provides components that adhere to Material Design guidelines.
 
 <hr>
 <br>
@@ -46,6 +47,7 @@ The project allows mobile users to input their symptoms and receive possible dia
 - **Coding Assistants** : 
     - Claude 3.5 Sonnet
     - Pieces Copilot
+    - GitHub Copilot
 - **Documentation Tool** : Mermaid
 
 <hr>
