@@ -4,8 +4,7 @@
 // import React, { useContext } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import { Appbar, Avatar } from 'react-native-paper';
-import PropTypes from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 // context
 // import { UserContext } from '../contexts/UserContext';
@@ -64,18 +63,27 @@ const styles = StyleSheet.create({
  * @param {Function} props.toggleDrawer - Function to toggle the navigation drawer
  * @returns {JSX.Element} The Header component
  */
-export default function Header({ toggleDrawer }) {
+export default function Header() {
     const navigation = useNavigation();
+    const route = useRoute();
     //   const { user } = useContext(UserContext);
     const user = null
 
     return (
         <Appbar.Header style={styles.header}>
-            <Appbar.Action
-                icon="menu"
-                onPress={toggleDrawer}
-                testID="menu-button"
-            />
+            {/* Show menu button if drawer can be opened */}
+            {navigation.canGoBack() ? (
+                <Appbar.BackAction 
+                    onPress={() => navigation.goBack()} 
+                    testID="menu-button"
+                />
+            ) : (
+                <Appbar.Action
+                    icon="menu"
+                    onPress={() => navigation.openDrawer()}
+                    testID="menu-button"
+                />
+            )}
 
             <Image
                 source={require('../assets/logo.png')}
@@ -111,6 +119,4 @@ export default function Header({ toggleDrawer }) {
     );
 }
 
-Header.propTypes = {
-    toggleDrawer: PropTypes.func.isRequired,
-};
+
