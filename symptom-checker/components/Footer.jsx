@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     backgroundColor: '#f5f5f5',
     padding: 16,
-    position: 'relative',
+    position: 'absolute',
     left: 0,
     bottom: 0,
     width: '100%',

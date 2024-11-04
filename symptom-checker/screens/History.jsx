@@ -1,31 +1,28 @@
 /**
  * Node modules
  */
-import { View, Text, StyleSheet } from "react-native";
-
+import { View, Text, StyleSheet } from 'react-native';
 
 /**
  * Styles - Home
  */
 const styles = StyleSheet.create({
     container: { 
-        flex: 1,
+        flex: 1, 
         justifyContent: 'space-around',
         alignItems: 'center', 
     }
 })
 
 /**
- * Home screen renders the main view for the home screen.
+ * Profile screen renders user information.
  */
-export default function Home() {
-    return (
+export default function Profile() {
+    return(
         <View style={styles.container}>
             <Text>
-                Symptom Form goes here!
+                User History goes here!
             </Text>
-        {/* <SymptomForm /> */}
         </View>
-    );
-  }
-  
+    )
+}
