@@ -4,7 +4,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 
 /**
- * Styles - Home
+ * Styles
  */
 const styles = StyleSheet.create({
     container: { 
@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
 })
 
 /**
- * Profile screen renders user information.
+ * History screen renders user history with symptoms searched and its related top diagnosis.
  */
 export default function Profile() {
     return(

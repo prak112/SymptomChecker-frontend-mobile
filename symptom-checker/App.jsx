@@ -84,7 +84,10 @@ function HomeStackNavigator() {
         name="Home" 
         component={Home}
         options={{ 
-          headerShown: false // Hide header for Home screen as Drawer header will be shown
+          headerShown: false, // Hide header for Home screen as Drawer header will be shown
+          cardStyle: {
+            backgroundColor: '#beeced',
+          }
         }} 
       />
       {/* Stack screens to add here */}
