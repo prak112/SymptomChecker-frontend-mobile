@@ -3,9 +3,13 @@
  */
 import { View, Text, StyleSheet } from "react-native";
 
+/**
+ * Screens
+ */
+import SymptomForm from "./SymptomForm";
 
 /**
- * Styles - Home
+ * Styles
  */
 const styles = StyleSheet.create({
     container: { 
@@ -21,10 +25,7 @@ const styles = StyleSheet.create({
 export default function Home() {
     return (
         <View style={styles.container}>
-            <Text>
-                Symptom Form goes here!
-            </Text>
-        {/* <SymptomForm /> */}
+            <SymptomForm />
         </View>
     );
   }

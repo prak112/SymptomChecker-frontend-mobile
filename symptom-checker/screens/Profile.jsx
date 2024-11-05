@@ -4,7 +4,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 
 /**
- * Styles - Home
+ * Styles
  */
 const styles = StyleSheet.create({
     container: { 

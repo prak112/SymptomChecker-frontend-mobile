@@ -11,14 +11,15 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
  */
 const styles = StyleSheet.create({
   footer: {
-    flex: 1,
+    flex: 0.27,
     justifyContent: 'flex-end',
     backgroundColor: '#f5f5f5',
     padding: 16,
-    position: 'absolute',
+    position: 'relative',
     left: 0,
     bottom: 0,
     width: '100%',
+    overflowX: 'hidden',
   },
   disclaimerSection: {
     marginBottom: 16,
