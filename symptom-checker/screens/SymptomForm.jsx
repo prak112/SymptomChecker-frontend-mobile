@@ -9,6 +9,7 @@ import {
     List, Portal, Dialog, HelperText, Icon, IconButton
 } from 'react-native-paper';
 
+import { getGeneralDiagnosis, getSpecificDiagnosis } from '@/api/symptoms'
 
 /**
  * Styles
@@ -139,14 +140,26 @@ export default function SymptomForm() {
     // Handle diagnosis submission
     const handleDiagnose = async (diagnosisType) => {
         try {
-            // Implement  API call here
-
+            let diagnosisData = []
+            diagnosisType = diagnosisType.toLowerCase()
+            const symptomsPayload = {
+                symptoms: symptoms,
+                analysis: diagnosisType
+            }
             console.log('Diagnosis type : ', diagnosisType.toLowerCase())
             console.log('User Symptoms : ', symptoms)
-            const data = await response.json();
-            setDiagnosis(data);
+
+            if(diagnosisType.includes('general')){
+                diagnosisData = await getGeneralDiagnosis(symptomsPayload)
+                console.log('General Diagnosis data : ', diagnosisData)
+            }
+            else{
+                diagnosisData = await getSpecificDiagnosis(symptomsPayload)
+                console.log('Specific Diagnosis data : ', diagnosisData)
+            }
+            setDiagnosis(diagnosisData);
         } catch (error) {
-            console.error('Error getting diagnosis:', error);
+            console.error('Error recieving diagnosis:', error);
         }
     };
 
