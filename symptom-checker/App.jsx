@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { PaperProvider } from 'react-native-paper';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 
 /**
  * Components
@@ -98,13 +98,25 @@ function HomeStackNavigator() {
 // Main App Component
 export default function App() {
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <StatusBar style="auto" />
-        <DrawerNavigator />
-        <Footer />
-      </NavigationContainer>
-    </PaperProvider>
+    <SafeAreaView style={styles.container}>
+      <PaperProvider>
+        <NavigationContainer>
+          <StatusBar style="auto" />
+          <DrawerNavigator />
+          <Footer />
+        </NavigationContainer>
+      </PaperProvider>
+    </SafeAreaView>
+
   );
 }
 
+/**
+ * Styles for rendering the app
+ */
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    overflow: 'hidden',
+  },
+});
