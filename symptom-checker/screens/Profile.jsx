@@ -19,7 +19,7 @@ export default function Profile() {
         <View style={styles.container}>
             <Text>
                 User information goes here!
-                Username : { user.toUpperCase() }
+                Username : { user ? user.toUpperCase() : 'Not logged in' }
             </Text>
         </View>
     )
