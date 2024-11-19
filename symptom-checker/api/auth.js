@@ -27,7 +27,7 @@ export const registerUser = async(userInformation) => {
 // POST - User login
 export const authenticateUser = async(userInformation) => {
     try {
-        const response = await client.post(`${EXPRESS_API_AUTH_URL}/signup`, userInformation)
+        const response = await client.post(`${EXPRESS_API_AUTH_URL}/login`, userInformation)
         return response.data
     } catch (error) {
         console.error('Error during user registration : ', error)
