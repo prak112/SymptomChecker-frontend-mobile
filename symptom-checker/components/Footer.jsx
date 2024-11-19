@@ -9,17 +9,17 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 /**
  * Styles - Footer and content
  */
+// components/Footer.jsx
 const styles = StyleSheet.create({
   footer: {
-    flex: 0.27,
-    justifyContent: 'flex-end',
     backgroundColor: '#f5f5f5',
     padding: 16,
-    position: 'relative',
+    position: 'absolute', // changed from 'relative'
     left: 0,
     bottom: 0,
-    width: '100%',
-    overflowX: 'hidden',
+    right: 0, // added to ensure full width
+    borderTopWidth: 1, // added for visual separation
+    borderTopColor: '#e0e0e0',
   },
   disclaimerSection: {
     marginBottom: 16,
@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
   disclaimerText: {
     fontSize: 12,
     textAlign: 'center',
-    fontWeight: 'bold',
     color: '#666',
   },
   authorSection: {
@@ -45,9 +44,10 @@ const styles = StyleSheet.create({
   copyrightText: {
     fontSize: 12,
     color: '#666',
-    textAlign: 'center',
-  },
+    textAlign: 'center'
+  }
 });
+
 
 /**
  * Footer component for the mobile application.
