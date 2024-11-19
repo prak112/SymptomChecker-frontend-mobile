@@ -10,6 +10,7 @@ import { Button } from "react-native-paper";
  */
 import SymptomForm from "./SymptomForm";
 import AuthenticationModal from "./auth/AuthenticationModal";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 
 /**
@@ -21,18 +22,15 @@ export default function Home() {
     const handleHideModal = () => setShowAuth(false)
     
     return (
-        <View style={styles.container}>
-            <Button
-                onPress={() => setShowAuth(true)}
-            >
-                Login / Sign Up
-            </Button>
-            <AuthenticationModal 
-                visible={showAuth}
-                hideModal={handleHideModal}
-            />
-            <SymptomForm />
-        </View>
+        <ErrorBoundary>
+            <View style={styles.container}>
+                <AuthenticationModal 
+                    visible={showAuth}
+                    hideModal={handleHideModal}
+                />
+                <SymptomForm />
+            </View>
+        </ErrorBoundary>
     );
 }
   
