@@ -1,6 +1,6 @@
 // ErrorBoundary.jsx
 import React, { Component } from 'react';
-import { StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
 
 class ErrorBoundary extends Component {
     constructor(props) {
