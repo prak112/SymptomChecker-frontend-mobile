@@ -18,8 +18,9 @@ export default function Profile() {
     return(
         <View style={styles.container}>
             <Text>
-                User information goes here!
-                Username : { user ? user.toUpperCase() : 'Not logged in' }
+                Welcome! <br/>
+                Username : { user ? user.username : 'Not logged in' } <br/>
+                Joined on : { user ? user.registrationTime : 'Not logged in' }
             </Text>
         </View>
     )
