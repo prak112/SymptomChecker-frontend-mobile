@@ -70,8 +70,8 @@ export default function Footer() {
         <Text style={styles.disclaimerText}>
           This is a work-in-progress project. This tool can produce false results.
           It is intended for informational and learning purposes only.
-          It is not a substitute for professional medical advice, diagnosis or treatment.
-          If you think you may have a medical emergency, immediately call your doctor or dial 112.
+          <strong>It is not a substitute for professional medical advice, diagnosis or treatment.
+          If you think you may have a medical emergency, immediately call your doctor or dial 112.</strong>
         </Text>
       </View>
 
