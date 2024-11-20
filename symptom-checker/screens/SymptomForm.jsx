@@ -149,11 +149,11 @@ export default function SymptomForm() {
             console.log('Diagnosis type : ', diagnosisType.toLowerCase())
             console.log('User Symptoms : ', symptoms)
 
-            if(diagnosisType.includes('general')){
+            if(diagnosisType.includes('general')) {
                 diagnosisData = await getGeneralDiagnosis(symptomsPayload)
                 console.log('General Diagnosis data : ', diagnosisData)
             }
-            else{
+            if(diagnosisType.includes('specific')) {
                 diagnosisData = await getSpecificDiagnosis(symptomsPayload)
                 console.log('Specific Diagnosis data : ', diagnosisData)
             }
