@@ -1,6 +1,24 @@
 // import api setup
 import { NODE_BACKEND_URL, EXPRESS_API_AUTH_URL, client } from "./utils/setup";
 
+// Intercept responses to retrieve 'auth_token' from 'Set-Cookie' header
+client.interceptors.response.use(async (response) => {
+    const setCookieHeader = response.headers['set-cookie']
+    console.log('Set-Cookie header : ', setCookieHeader)
+    if(setCookieHeader) {
+      const authToken = setCookieHeader.find(cookie => cookie.includes('auth_token'))
+      if(authToken) {
+        const authTokenValue = authToken.split(';')[0] // based on values seperation
+        console.log('Auth Token : ', authTokenValue)
+        await AsyncStorage.setItem('auth_token', authTokenValue)
+      }
+    }
+    return response;
+    
+    }, error => {
+        return Promise.reject(error);
+  });
+
 
 // POST - Guest User registration and login
 export const createGuestUser = async() => {
