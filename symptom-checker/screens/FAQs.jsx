@@ -9,9 +9,9 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
  */
 const styles = StyleSheet.create({
     container: {
+        backgroundColor: '#beed',
         flex: 1,
         padding: 20,
-        backgroundColor: '#fff',
     },
     header: {
         fontSize: 24,
