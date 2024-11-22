@@ -1,15 +1,16 @@
 /**
  * Node modules
  */
-import React, { useContext } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useContext, useState } from 'react';
+import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
 import { 
     Modal, 
     Portal, 
     Text, 
     Button, 
     Surface,
-    Icon 
+    Icon, 
+    Divider
 } from 'react-native-paper';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -32,20 +33,22 @@ export default function LogoutModal({ visible, hideModal }) {
     const navigation = useNavigation();
     const { user, setUser } = useContext(UserContext);
 
+    /**
+     * Clears local storage, call server endpoint to clear JWT cookie. 
+     * In UserContext, reset user state and redirect to 'Home'.
+     */
     const handleLogout = async () => {
         try {
-            console.log('Clearing local storage...')
             await AsyncStorage.removeItem('authenticatedUser');
-            console.log('Calling logout endpoint...')
             await invalidateUserSession();
-            console.log('Resetting user state...')
-            setUser(null);
-            console.log('User status : ', user)
-            navigation.navigate('Login')
-            hideModal();
+            setUser(null)
+            hideModal()
+            navigation.navigate('Home')
             console.log('logout successful')
+            // alert notification
         } catch (error) {
             console.error('Error during logout:', error);
+            // alert notification
         }
     };
 
@@ -56,40 +59,47 @@ export default function LogoutModal({ visible, hideModal }) {
                 onDismiss={hideModal}
                 contentContainerStyle={styles.modalContainer}
             >
-                <Surface style={styles.surface}>
-                    <Text variant="headlineMedium" style={styles.title}>
-                        Confirm Logout
-                    </Text>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    style={styles.container}
+                >
+                    <Surface style={styles.surface}>
+                        <Text variant="headlineMedium" style={styles.title}>
+                            Confirm Logout
+                        </Text>
 
-                    {/* Data disclaimer */}
-                    <Text style={styles.disclaimerText}>
-                    <Icon
-                        source="shield-lock-outline"
-                        size={24}
-                        color="#666"
-                    />
-                        All your data is always end-to-end encrypted.
-                    </Text>
+                        {/* Data disclaimer */}
+                        <Text style={styles.disclaimerText}>
+                            <Icon
+                                source="shield-lock-outline"
+                                size={24}
+                                color="#666"
+                            />
+                            All your data is always end-to-end encrypted.
+                        </Text>
 
-                    <View style={styles.buttonContainer}>
-                        <Button
-                            mode="contained"
-                            onPress={handleLogout}
-                            style={styles.logoutButton}
-                            icon="logout"
-                        >
-                            Logout
-                        </Button>
+                        <Divider />
 
-                        <Button
-                            mode="outlined"
-                            onPress={hideModal}
-                            style={styles.cancelButton}
-                        >
-                            Cancel
-                        </Button>
-                    </View>
-                </Surface>
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                mode="contained"
+                                onPress={handleLogout}
+                                style={styles.logoutButton}
+                                icon="logout"
+                            >
+                                Logout
+                            </Button>
+                            <Button
+                                mode="outlined"
+                                onPress={hideModal}
+                                style={styles.cancelButton}
+                            >
+                                Cancel
+                            </Button>
+                        </View>
+
+                    </Surface>
+                </KeyboardAvoidingView>
             </Modal>
         </Portal>
     );
