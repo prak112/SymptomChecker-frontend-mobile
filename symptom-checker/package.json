@@ -30,6 +30,7 @@
   "homepage": "https://github.com/prak112/SymptomChecker-frontend-mobile#readme",
   "dependencies": {
     "@expo/metro-runtime": "^3.1.3",
+    "@react-native-async-storage/async-storage": "^1.21.0",
     "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.1.18",
     "@react-navigation/stack": "^6.4.1",

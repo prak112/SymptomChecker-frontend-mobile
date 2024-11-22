@@ -7,7 +7,8 @@ import { View, Text, StyleSheet } from 'react-native';
  * Styles
  */
 const styles = StyleSheet.create({
-    container: { 
+    container: {
+        backgroundColor: '#beed',  
         flex: 1, 
         justifyContent: 'space-around',
         alignItems: 'center', 
