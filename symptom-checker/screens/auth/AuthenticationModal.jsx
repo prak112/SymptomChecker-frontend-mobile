@@ -2,7 +2,7 @@
  * Node modules
  */
 import React, { useState, useContext } from 'react';
-import { StyleSheet, View, KeyboardAvoidingView, Platform } from 'react-native';
+import { StyleSheet, View, KeyboardAvoidingView, Platform, Dimensions } from 'react-native';
 import { 
   Modal, 
   Portal, 
@@ -10,6 +10,7 @@ import {
   TextInput, 
   Button, 
   Surface,
+  Icon,
   IconButton 
 } from 'react-native-paper';
 import PropTypes from 'prop-types';
@@ -27,8 +28,10 @@ import {
   createGuestUser, 
   registerUser, 
   authenticateUser, 
-  invalidateUserSession 
 } from '@/api/auth';
+import { useNavigation } from '@react-navigation/native';
+
+
 
 
 /**
@@ -46,11 +49,11 @@ export default function AuthenticationModal({ visible, hideModal }) {
   const [isLogin, setIsLogin] = useState(true);
   const [credentials, setCredentials] = useState({
     username: '',
-    // email: '',
     password: '',
     confirmPassword: ''
   });
   const [secureTextEntry, setSecureTextEntry] = useState(true);
+  const navigation = useNavigation()
 
   // handle user auth events
   const handleSubmit = async() => {
@@ -59,42 +62,50 @@ export default function AuthenticationModal({ visible, hideModal }) {
       : await handleRegistration()
   }
 
+  // user logs in to the service
+  const handleAuthentication = async() => {
+    try {
+      const authorizedUser = await authenticateUser(credentials)
+      await AsyncStorage.setItem('authenticatedUser', authorizedUser)
+      setUser(authorizedUser)
+      console.log('Authenticated User : ', authorizedUser)
+      navigation.navigate('Home')
+      hideModal()
+    } catch (error) {
+      console.error('Error during authentication:', error);
+      Alert.alert('Authentication Error', error.message)
+      throw error;
+    }
+  }
+
+  // user signs up for the service
   const handleRegistration = async() => {
     try {
       if(credentials.password !== credentials.confirmPassword) {
         throw new Error('Passwords do not match');
       }
-      await registerUser({
+      const registeredUser = await registerUser({
         username: credentials.username,
         password: credentials.password
       });
+      console.log('Registered User : ', registeredUser)
+      navigation.navigate('Login')
+      hideModal()
     } catch (error) {
       console.error('Error during registration : ', error)
       throw error;
     }
   }
 
-  const handleAuthentication = async() => {
-    try {
-      const authorizedUser = await authenticateUser(credentials)
-      //setUser
-      await AsyncStorage.setItem('authenticatedUser', authorizedUser.username)
-      setUser(authorizedUser.username)
-    } catch (error) {
-      console.error('Error during authentication:', error);
-      throw error;
-    }
-  }
-
+  // guest user auto-registered and auto-authenticated
   const handleGuestLogin = async() => {
-    createGuestUser()
+    const guestUser = await createGuestUser()
+    await AsyncStorage.setItem('authenticatedUser', guestUser)
+    setUser(guestUser)
+    navigation.navigate('Home')
     hideModal()
   }
 
-  const handleLogout = async() => {
-    invalidateUserSession()
-    hideModal()
-  }
 
   return (
     <Portal>
@@ -112,24 +123,13 @@ export default function AuthenticationModal({ visible, hideModal }) {
               {isLogin ? 'Login' : 'Sign Up'}
             </Text>
 
-            {/* {!isLogin && (
-              <TextInput
-                label="Email"
-                value={credentials.email}
-                onChangeText={(text) => setCredentials({ ...credentials, email: text })}
-                mode="outlined"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                style={styles.input}
-              />
-            )} */}
-
             <TextInput
               label="Username"
               value={credentials.username}
               onChangeText={(text) => setCredentials({ ...credentials, username: text })}
               mode="outlined"
               autoCapitalize="none"
+              autoComplete='off'
               style={styles.input}
             />
 
@@ -145,6 +145,7 @@ export default function AuthenticationModal({ visible, hideModal }) {
                   onPress={() => setSecureTextEntry(!secureTextEntry)}
                 />
               }
+              autoComplete='off'
               style={styles.input}
             />
 
@@ -167,6 +168,17 @@ export default function AuthenticationModal({ visible, hideModal }) {
               />
             )}
 
+            {/* Data disclaimer */}
+            <Text style={styles.disclaimerText}>
+              <Icon
+                  source="shield-lock-outline"
+                  size={24}
+                  color="#666"
+              />
+                All your data is always end-to-end encrypted.
+            </Text>
+            
+            {/* Auth buttons */}
             <Button 
               mode="contained" 
               onPress={handleSubmit}
@@ -194,7 +206,7 @@ export default function AuthenticationModal({ visible, hideModal }) {
             >
               Continue As Guest
             </Button>
-
+            
           </Surface>
         </KeyboardAvoidingView>
       </Modal>
@@ -206,11 +218,15 @@ export default function AuthenticationModal({ visible, hideModal }) {
 /**
  * Styles
  */
+const screenWidth = Dimensions.get('screen')
+
 const styles = StyleSheet.create({
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    alignContent: 'space-around',
+    padding: 40,
+    maxWidth: screenWidth * 0.5,
   },
   container: {
     flex: 1,
@@ -225,6 +241,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 8,
     top: 8,
+  },
+  disclaimerText: {
+    textAlign: 'center',
+    marginVertical: 16,
+    color: '#666',
   },
   title: {
     textAlign: 'center',
