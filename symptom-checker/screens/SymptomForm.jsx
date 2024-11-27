@@ -9,56 +9,16 @@ import {
     List, Portal, Dialog, HelperText, Icon, IconButton
 } from 'react-native-paper';
 
+/**
+ * Service functions
+ */
 import { getGeneralDiagnosis, getSpecificDiagnosis } from '@/api/symptoms'
 
 /**
- * Styles
+ * Components
  */
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        margin: 8,
-        padding: 32,
-    },
-    card: {
-        marginBottom: 16,
-    },
-    title: {
-        marginBottom: 16,
-        textAlign: 'center',
-    },
-    inputContainer: {
-        marginBottom: 16,
-    },
-    input: {
-        marginBottom: 8,
-    },
-    searchBar: {
-        marginBottom: 16,
-    },
-    chipContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        marginBottom: 16,
-    },
-    chip: {
-        margin: 4,
-    },
-    assessmentContainer: {
-        marginBottom: 16,
-    },
-    assessmentCard: {
-        textAlign: 'center',
-        padding: 16,
-        marginBottom: 8,
-    },
-    diagnoseButton: {
-        marginTop: 16,
-    },
-    diagnosisCard: {
-        marginTop: 16,
-    },
-});
+import WaitingDiagnosis from './WaitingDiagnosis';
+import Diagnosis from './Diagnosis';
 
 
 /**
@@ -95,6 +55,8 @@ export default function SymptomForm() {
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
     const [showSearch, setShowSearch] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [submitted, setSubmitted] = useState(false);
     const [diagnosis, setDiagnosis] = useState(null);
     const navigation = useNavigation()
     const inputRef = useRef(null)
@@ -142,6 +104,8 @@ export default function SymptomForm() {
         try {
             let diagnosisData = []
             diagnosisType = diagnosisType.toLowerCase()
+            setIsLoading(true)
+
             const symptomsPayload = {
                 symptoms: symptoms,
                 analysis: diagnosisType
@@ -158,11 +122,48 @@ export default function SymptomForm() {
                 console.log('Specific Diagnosis data : ', diagnosisData)
             }
             setDiagnosis(diagnosisData);
+
+            setTimeout(() => {
+                setIsLoading(false)
+                setSubmitted(true)
+            }, 2000)
+
         } catch (error) {
             console.error('Error recieving diagnosis:', error);
         }
     };
 
+    const returnSymptomForm = () => {
+        setIsLoading(false);
+        setSubmitted(false);
+        navigation.navigate('Home')
+    }
+
+    /**
+     * Conditional rendering of <Waiting /> or <Diagnosis /> or <SymptomForm />
+     */
+    if(isLoading) {
+        console.log('Render loading screen...');
+        return <WaitingDiagnosis handleReturn={returnSymptomForm}/>
+    }
+
+    if(submitted) {
+        console.log('Render Diagnosis screen...');
+        return (
+            <ScrollView style={styles.container}>
+            {diagnosis.map((diagnosisBySymptom, index) => 
+                <Card key={index} style={styles.diagnosisCard}>
+                    <Diagnosis 
+                        data={diagnosisBySymptom} 
+                        handleReturn={returnSymptomForm} 
+                    />
+                </Card>
+            )}
+            </ScrollView>
+        )
+    }
+
+    console.log('Rendering SymptomForm screen...')
     return (
         <ScrollView style={styles.container}>
             <Card style={styles.card}>
@@ -236,21 +237,11 @@ export default function SymptomForm() {
                             </Card>
                         ))}
                     </View>
-
-                    {/* Diagnosis Results */}
-                    {diagnosis && (
-                        <Card style={styles.diagnosisCard}>
-                            <Card.Content>
-                                <Text variant="titleMedium">Diagnosis Results</Text>
-                                <Text>{diagnosis.result}</Text>
-                            </Card.Content>
-                        </Card>
-                    )}
                 </Card.Content>
             </Card>
 
             {/* Search Results Dialog */}
-            <Portal>
+            {/* <Portal>
                 <Dialog visible={showSearch} onDismiss={() => setShowSearch(false)}>
                     <Dialog.Content>
                         {searchResults.map((result, index) => (
@@ -266,8 +257,56 @@ export default function SymptomForm() {
                         ))}
                     </Dialog.Content>
                 </Dialog>
-            </Portal>
+            </Portal> */}
         </ScrollView>
     );
 }
 
+/**
+ * Styles
+ */
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        margin: 8,
+        padding: 32,
+    },
+    card: {
+        marginBottom: 16,
+    },
+    title: {
+        marginBottom: 16,
+        textAlign: 'center',
+    },
+    inputContainer: {
+        marginBottom: 16,
+    },
+    input: {
+        marginBottom: 8,
+    },
+    searchBar: {
+        marginBottom: 16,
+    },
+    chipContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        marginBottom: 16,
+    },
+    chip: {
+        margin: 4,
+    },
+    assessmentContainer: {
+        marginBottom: 16,
+    },
+    assessmentCard: {
+        textAlign: 'center',
+        padding: 16,
+        marginBottom: 8,
+    },
+    diagnoseButton: {
+        marginTop: 16,
+    },
+    diagnosisCard: {
+        marginTop: 16,
+    },
+});
