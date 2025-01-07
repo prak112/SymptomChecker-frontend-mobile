@@ -15,8 +15,9 @@ The project allows mobile users to input their symptoms and receive possible dia
 <br>
 
 # Workflow
-
-...coming soon...
+- Similar to Web Development workflow, except for navigation.
+- Mobile Development uses [React Navigation](https://reactnavigation.org/docs/getting-started) instead of [React Router](https://reactrouter.com/home)
+- [See workflow](https://github.com/prak112/Symptom-Checker-frontend?tab=readme-ov-file#workflow) 
 
 <hr>
 <br>
