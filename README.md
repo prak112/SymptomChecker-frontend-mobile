@@ -1,6 +1,11 @@
 # Overview
 - This repository serves as a Mobile Client for Symptom Checker application.
-- The Mobile Client provides a responsive and smooth UI for mobile users to input their symptoms and receive related diagnoses.
+- Mobile Client is responsible for providing a responsive and smooth UI for mobile users with :
+  - authentication prompt to register as user or guest
+  - main screen with input and analysis selection for diagnosing symptoms,
+  - sidebar navigation with access to auth, profile, FAQs and history,
+  - loading screen with approximate response times,
+  - diagnosis screen with summarized display under symptom headings with symptom-relative scoring and further reading redirect URLs.
 - <em>The application UI clearly displays a disclaimer at all times about the possible inaccuracies this application could generate.</em>
 
 - Prototype, plan and implementation of the Symptom Checker application are defined in the [prototype README](https://github.com/prak112/ICD11-SymptomChecker#overview)
