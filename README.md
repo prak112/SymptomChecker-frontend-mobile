@@ -3,11 +3,12 @@
 - The Mobile Client provides a responsive and smooth UI for mobile users to input their symptoms and receive related diagnoses.
 - <em>The application UI clearly displays a disclaimer at all times about the possible inaccuracies this application could generate.</em>
 
+- Prototype, plan and implementation of the Symptom Checker application are defined in the [prototype README](https://github.com/prak112/ICD11-SymptomChecker#overview)
 - Tools and Technologies used :
-
     - `react-native`: Framework for building native mobile apps using JavaScript and React for cross-platform functionality (Andriod, iOS).   
     - `expo`: Platform for building, deploying, and managing React Native apps across web and mobile platforms.
     - `react-native-paper`: Replacement for Material UI components in React Native. Provides components that adhere to Material Design guidelines.
+    - `axios` : Establishes communication with server-side application
 
 <hr>
 <br>
