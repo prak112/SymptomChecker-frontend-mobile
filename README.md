@@ -1,9 +1,7 @@
 # Overview
-This repository contains the source code for the frontend of the Symptom Checker mobile application. 
-
-The project allows mobile users to input their symptoms and receive possible diagnoses based on those symptoms.
-
-<em>The application UI clearly displays a disclaimer at all times about the possible inaccuracies this application could generate.</em>
+- This repository serves as a Mobile Client for Symptom Checker application.
+- The Mobile Client provides a responsive and smooth UI for mobile users to input their symptoms and receive related diagnoses.
+- <em>The application UI clearly displays a disclaimer at all times about the possible inaccuracies this application could generate.</em>
 
 - Tools and Technologies used :
 
