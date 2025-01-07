@@ -1,6 +1,7 @@
 # Overview
 - This repository serves as a Mobile Client for Symptom Checker application.
 - Mobile Client is responsible for providing a responsive and smooth UI for mobile users with :
+  - establish communication with **[Shared Backend](https://github.com/prak112/Symptom-Checker-backend)** 
   - authentication prompt to register as user or guest
   - main screen with input and analysis selection for diagnosing symptoms,
   - sidebar navigation with access to auth, profile, FAQs and history,
